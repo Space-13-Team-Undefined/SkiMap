@@ -15,11 +15,11 @@
     <div id="filtri" class="flex-centro">
       <div id="tipologia" class="filtro" v-on:click="filtri('filtroTipologia')">Tipologia</div>
       <div id="filtroTipologia" class="modificaFiltro">modifica tipologia
-        <CampoScuola  class="icona" />
-        <SciDiscesa class="icona" />
-        <SciFondo class="icona/>
-        <Skiweg class="icona"/
-        <Snowboard class="icona"
+        <CampoScuola class="icona"/>
+        <SciDiscesa class="icona"/>
+        <SciFondo class="icona"/>
+        <Skiweg class="icona"/>
+        <Snowboard class="icona"/>
       </div>
       <div id="lunghezza" class="filtro" v-on:click="filtri('filtroLunghezza')">Lunghezza
       </div>
