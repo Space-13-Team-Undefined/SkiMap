@@ -14,8 +14,15 @@
 
     <div id="filtri" class="flex-centro">
       <div id="tipologia" class="filtro" v-on:click="filtri('filtroTipologia')">Tipologia</div>
-      <div id="filtroTipologia" class="modificaFiltro">modifica tipologia</div>
-      <div id="lunghezza" class="filtro" v-on:click="filtri('filtroLunghezza')">Lunghezza</div>
+      <div id="filtroTipologia" class="modificaFiltro">modifica tipologia
+        <CampoScuola  class="icona" />
+        <SciDiscesa class="icona" />
+        <SciFondo class="icona/>
+        <Skiweg class="icona"/
+        <Snowboard class="icona"
+      </div>
+      <div id="lunghezza" class="filtro" v-on:click="filtri('filtroLunghezza')">Lunghezza
+      </div>
       <div id="filtroLunghezza" class="modificaFiltro">modifica lunghezza</div>
       <div id="difficolta" class="filtro" v-on:click="filtri('filtroDifficolta')">Difficoltà</div>
       <div id="filtroDifficolta" class="modificaFiltro">modifica difficoltà</div>
@@ -85,6 +92,8 @@ export default {
   border: 0.1em solid black;
   border-width: 0 0 0.1em 0;
   background-color: #ffffff;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .modificaFiltro{
@@ -94,5 +103,13 @@ export default {
   border: 0.1em solid black;
   border-width: 0 0 0.1em 0;
   background-color: #ffffff;
+}
+
+.icona{
+  height: 0.2em;
+  width: 0.2em;
+  display: inline-block;
+  text-align: center;
+  padding: 0.1em;
 }
 </style>
