@@ -11,8 +11,14 @@
         <IconaFiltro />
       </div>
     </div>
-    <div id="tipologia" class="flex-centro">
-      Tipologia
+
+    <div id="filtri" class="flex-centro">
+      <div id="tipologia" class="filtro" v-on:click="filtri('filtroTipologia')">Tipologia</div>
+      <div id="filtroTipologia" class="modificaFiltro">modifica tipologia</div>
+      <div id="lunghezza" class="filtro" v-on:click="filtri('filtroLunghezza')">Lunghezza</div>
+      <div id="filtroLunghezza" class="modificaFiltro">modifica lunghezza</div>
+      <div id="difficolta" class="filtro" v-on:click="filtri('filtroDifficolta')">Difficoltà</div>
+      <div id="filtroDifficolta" class="modificaFiltro">modifica difficoltà</div>
     </div>
 
 
@@ -45,21 +51,22 @@ export default {
     }
   }
 }
-</script>
+  </script>
 
-<style scoped>
-#header {
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 0.1em solid black;
-  border-width: 0 0 0.1em 0;
-  padding: 0.5em 0.7em;
-}
+  <style scoped>
+  #header {
+    width: 100vw;
 
-#titolo{
-  font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 0.1em solid black;
+    border-width: 0 0 0.1em 0;
+    padding: 0.5em 0.7em;
+  }
+
+  #titolo{
+    font-size: 2em;
   font-family: "Evolve", serif;
 }
 
