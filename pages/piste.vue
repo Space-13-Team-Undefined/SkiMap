@@ -28,14 +28,67 @@
       <div id="filtroDifficolta" class="modificaFiltro">modifica difficoltà</div>
     </div>
 
-
+    <GMap
+        id="mappa"
+        ref="gMap"
+        language="it"
+        :cluster="{options: {styles: clusterStyle}}"
+        :center="{lat: locations[0].lat, lng: locations[0].lng}"
+        :options="{fullscreenControl: false, styles: mapStyle}"
+        :zoom="6"
+    >
+      <GMapMarker
+          v-for="location in locations"
+          :key="location.id"
+          :position="{lat: location.lat, lng: location.lng}"
+          :options="{icon: location === currentLocation ? pins.selected : pins.notSelected}"
+          @click="currentLocation = location"
+      >
+        <GMapInfoWindow :options="{maxWidth: 100}">
+          <code>
+            lat: {{ location.lat }},
+            lng: {{ location.lng }}
+          </code>
+        </GMapInfoWindow>
+      </GMapMarker>
+      <GMapCircle :options="circleOptions"/>
+    </GMap>
   </div>
 </template>
 
 <script>
-const chiaveApiMaps = process.env.CHIAVE_API_GOOGLE_MAPS
-
 export default {
+  data() {
+    return {
+      currentLocation: {},
+      locations: [
+        {
+          lat: 60.933076,
+          lng: 20.629058
+        },
+        {
+          lat: 45.815,
+          lng: 15.9819
+        },
+        {
+          lat: 45.12,
+          lng: 16.21
+        }
+      ],
+      pins: {
+        selected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
+        notSelected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png"
+      },
+      clusterStyle: [
+        {
+          url: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
+          textColor: "#fff",
+          height: "100vh",
+          width: "100vw",
+        }
+      ]
+    }
+  },
   methods: {
     filtroBottone(){
       if(document.getElementById("filtri").style.display === "none"){
@@ -61,6 +114,12 @@ export default {
   </script>
 
   <style scoped>
+  #piste {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+  }
   #header {
     width: 100vw;
 
@@ -72,7 +131,12 @@ export default {
     padding: 0.5em 0.7em;
   }
 
-  #titolo{
+  #mappa {
+    position: relative;
+    flex-grow: 1;
+  }
+
+#titolo{
     font-size: 2em;
   font-family: "Evolve", serif;
 }
@@ -106,9 +170,8 @@ export default {
 }
 
 .icona{
-  height: 0.2em;
-  width: 0.2em;
-  display: inline-block;
+  height: 3em;
+  width: 3em;
   text-align: center;
   padding: 0.1em;
 }

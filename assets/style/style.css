@@ -46,3 +46,7 @@ a {
   align-content: center;
   justify-content: center;
 }
+
+.GMap__Wrapper {
+  height: 100% !important;
+}
