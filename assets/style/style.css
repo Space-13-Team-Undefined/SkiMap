@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "Evolve";
+  font-style: italic;
+  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Medium.otf) format("opentype");
+}
+@font-face {
+  font-family: "Evolve";
+  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Regular-EVO.otf) format("opentype");
+}
+@font-face {
+  font-family: "Evolve";
+  font-weight: 100;
+  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Thin.otf) format("opentype");
+}
+@font-face {
+  font-family: "Evolve";
+  font-weight: bold;
+  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Medium-EVO.otf) format("opentype");
+}
+
+:root {
+  --blu: #014D81;
+  --blu-mare: #3E93BC;
+  --celeste: #A3DFF9;
+  --arancio: #FB5722;
+  --bianco: #dedcdc;
+}
+
+*, :before, :after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
