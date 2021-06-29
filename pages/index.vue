@@ -3,7 +3,7 @@
     <div id="logo">
       <img src="logo.png" id="logo-img">
     </div>
-    <div id="sezioni">
+    <div id="sezioni" class="desktop">
       <nuxt-link to="/piste">
         <div class="sezione" id="piste" >
           <div class="nome">
@@ -18,6 +18,16 @@
           </div>
         </div>
       </nuxt-link>
+    </div>
+    <div id="home-mobile" class="mobile">
+      <div id="bottoni">
+        <nuxt-link to="/piste">
+          <Bottone testo="Piste" />
+        </nuxt-link>
+        <nuxt-link to="/scuole">
+          <Bottone testo="Scuole" />
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>
@@ -41,22 +51,14 @@ export default {}
   z-index: 100;
 }
 
-#sezioni {
-  display: flex;
-}
 
-.nome {
-  font-family: "Evolve", serif;
-  font-style: italic;
-}
+@media screen and (max-width: 600px) {
+  .desktop {
+    display: none;
+  }
 
-
-@media screen and (max-width: 700px) {
   #logo {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     font-size: 5em;
   }
 
@@ -64,44 +66,44 @@ export default {}
     width: 100vw;
   }
 
-  #sezioni {
-    flex-direction: column;
-  }
-
-
-  .sezione {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 50vh;
+  #home-mobile {
     background-image: url("static/background-mobile.jpg");
     background-size: cover;
+    background-position: center;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 4em;
   }
 
-  .nome {
+  #bottoni {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.2em 0.4em;
-    width: 70%;
-    font-size: 3em;
-    font-weight: bold;
-    transition: all 500ms ease-in-out;
-    filter: grayscale(0%);
-    background-color: rgba(255,255,255,0.5);
-    border-radius: 0.5em;
-    border: 0.1em solid black;
+    flex-wrap: wrap;
+  }
+
+  .bottone {
+    margin: 1em;
+    font-size: 2em;
   }
 }
 
-@media screen and (min-width: 701px) {
+@media screen and (min-width: 601px) {
+  .mobile {
+    display: none;
+  }
+
   #logo {
     top: 10%;
   }
 
   #logo-img {
     width: 7em;
+  }
+
+
+  #sezioni {
+    display: flex;
   }
 
   .sezione {
@@ -124,6 +126,8 @@ export default {}
     transition: all 400ms ease-in-out;
     filter: grayscale(0%);
     backdrop-filter: blur(5px);
+    font-family: "Evolve", serif;
+    font-style: italic;
   }
 
   .sezione:hover {
