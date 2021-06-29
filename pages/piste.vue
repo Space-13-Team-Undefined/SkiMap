@@ -63,10 +63,29 @@ export default {
   font-family: "Evolve", serif;
 }
 
-#tipologia{
+#filtri{
   width: 100vw;
   display: none;
   flex-direction: column;
+  background-color: #ffffff;
+}
+
+.filtro{
+  width: 100vw;
+  padding: 0.2em;
+  font-size: 1.5em;
+  display: flex;
+  border: 0.1em solid black;
+  border-width: 0 0 0.1em 0;
+  background-color: #ffffff;
+}
+
+.modificaFiltro{
+  width: 100vw;
+  display: none;
+  font-size: 1em;
+  border: 0.1em solid black;
+  border-width: 0 0 0.1em 0;
   background-color: #ffffff;
 }
 </style>
