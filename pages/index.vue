@@ -33,7 +33,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  // test
+}
 </script>
 
 <style scoped>
