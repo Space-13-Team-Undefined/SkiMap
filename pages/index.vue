@@ -4,16 +4,20 @@
       <img src="logo.png" id="logo-img">
     </div>
     <div id="sezioni">
-      <div class="sezione" id="piste">
-        <div class="nome">
-          PISTE
+      <nuxt-link to="/piste">
+        <div class="sezione" id="piste" >
+          <div class="nome">
+            PISTE
+          </div>
         </div>
-      </div>
-      <div class="sezione" id="scuole">
-        <div class="nome">
-          SCUOLE
+      </nuxt-link>
+      <nuxt-link to="/scuole">
+        <div class="sezione" id="scuole">
+          <div class="nome">
+            SCUOLE
+          </div>
         </div>
-      </div>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -47,7 +51,7 @@ export default {}
 }
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 700px) {
   #logo {
     display: flex;
     align-items: center;
@@ -91,7 +95,7 @@ export default {}
   }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 701px) {
   #logo {
     top: 10%;
   }

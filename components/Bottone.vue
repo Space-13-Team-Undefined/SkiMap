@@ -21,8 +21,7 @@ export default {
     background-color: var(--celeste);
     border: 3px solid white;
     border-radius: 0.75em;
-    padding: 1em;
-    width: 10em;
+    padding: 0.4em;
     text-align: center;
   }
 </style>
