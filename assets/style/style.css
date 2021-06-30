@@ -99,6 +99,10 @@ svg {
   height: 100vh;
   width: 100vw;
 }
+.maxDim {
+  height: 100%;
+  width: 100%;
+}
 
 .flex {
   display: flex;

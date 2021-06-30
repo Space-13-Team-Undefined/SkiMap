@@ -31,7 +31,8 @@ export default {
     dirs: [
       '~/components',
       '~/components/icone/piste',
-      '~/components/icone/ui'
+      '~/components/icone/ui',
+      '~/components/ui'
     ]
   },
 
