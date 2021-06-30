@@ -153,14 +153,10 @@ export default {
       const tipologie = ["Camposcuola", "Discesa", "Sci di fondo", "Skiweg", "Snowboard"];
       this.tipologia = tipologie[indice];
     },
-    compare( a, b ) {
-      if ( a.lunghezza_pista < b.lunghezza_pista ){
-        return -1;
-      }
-      if ( a.lunghezza_pista > b.lunghezza_pista ){
-        return 1;
-      }
-        return 0;
+
+    cambiaLunghezza() {
+      console.log(document.getElementById("slider-lunghezza").value)
+      this.lunghezza = parseInt(document.getElementById("slider-lunghezza").value)
     }
   }
 }
