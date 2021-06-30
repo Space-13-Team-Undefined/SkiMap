@@ -217,8 +217,9 @@ export default {
 }
 
 .icona{
-  height: 3em;
-  width: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   border-radius: 7px;
 }
