@@ -110,9 +110,9 @@
         ref="gMap"
         language="it"
         :cluster="{options: {styles: clusterStyle}}"
-        :center="{lat: locations[0].lat, lng: locations[0].lng}"
+        :center="{lat: posizioneIniziale.lat, lng: posizioneIniziale.lng}"
         :options="{fullscreenControl: false, styles: mapStyle}"
-        :zoom="6"
+        :zoom="10"
     >
       <GMapMarker
           v-for="location in locations"
@@ -166,6 +166,10 @@ export default {
 
       // Maps
       currentLocation: {},
+      posizioneIniziale: {
+        lat: 46.54754835725146,
+        lng: 10.1375703079666
+      },
       locations: [
         {
           lat: 46.54754835725146,
@@ -184,6 +188,10 @@ export default {
         selected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
         notSelected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png"
       },
+      circleOptions: {
+
+      },
+      mapStyle: [],
       clusterStyle: [
         {
           url: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
@@ -195,6 +203,18 @@ export default {
     }
   },
   mounted() {
+    window.navigator.geolocation.getCurrentPosition(
+        posizione => {
+          console.log(posizione)
+          const coordinate = posizione.coords
+          this.posizioneIniziale = {
+            lat: coordinate.latitude,
+            lng: coordinate.longitude
+          }
+        },
+        () => console.error("geolocalizzazione disattivata")
+    )
+
     this.$lombardiaAPI.get('8c8w-y5ce.json?$select=lunghezza_pista')
         .then(risposta => {
           let dati = risposta.data;
