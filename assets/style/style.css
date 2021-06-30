@@ -18,6 +18,11 @@
   src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Medium-EVO.otf) format("opentype");
 }
 
+@font-face {
+  font-family: "ITCAvantGardenPro";
+  src: local("Evolve"), url(~assets/fonts/ITCAvantGardePro-Bold.otf) format("opentype");
+}
+
 :root {
   --blu: #014D81;
   --blu-mare: #3E93BC;
@@ -45,6 +50,10 @@ a {
   display: flex;
   align-content: center;
   justify-content: center;
+}
+
+.nascosto {
+  display: none !important;
 }
 
 .GMap__Wrapper {

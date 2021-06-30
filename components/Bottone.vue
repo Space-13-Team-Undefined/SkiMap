@@ -18,10 +18,13 @@ export default {
 
 <style scoped>
   .bottone {
-    background-color: var(--celeste);
-    border: 3px solid white;
-    border-radius: 0.75em;
+    background-color: #275efe;
+    border-radius: 0.5em;
     padding: 0.4em;
     text-align: center;
+    color: white;
+    width: 4em;
+    font-family: "Evolve", serif;
+    font-weight: 100;
   }
 </style>
