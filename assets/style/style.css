@@ -1,36 +1,69 @@
+/*
+Nomenclatura:
+- bg = background
+- cont = container
+- mob = mobile
+ */
+
+
+/*
+Font Evolve:
+- Se usato con font-style: italic; fornisce uno stile più unico
+- Per usare lo stile bold mettere font-weight: bold;
+- Per usare uno stile più sottile mettere font-weight: 100;
+ */
+@font-face {
+  font-family: "Evolve";
+  src: url(~assets/fonts/MADE-Evolve-Sans-Regular.otf) format("opentype");
+}
 @font-face {
   font-family: "Evolve";
   font-style: italic;
-  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Medium.otf) format("opentype");
-}
-@font-face {
-  font-family: "Evolve";
-  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Regular-EVO.otf) format("opentype");
-}
-@font-face {
-  font-family: "Evolve";
-  font-weight: 100;
-  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Thin.otf) format("opentype");
+  src: url(~assets/fonts/MADE-Evolve-Sans-Regular-EVO.otf) format("opentype");
 }
 @font-face {
   font-family: "Evolve";
   font-weight: bold;
-  src: local("Evolve"), url(~assets/fonts/MADE-Evolve-Sans-Medium-EVO.otf) format("opentype");
+  src: url(~assets/fonts/MADE-Evolve-Sans-Medium.otf) format("opentype");
+}
+@font-face {
+  font-family: "Evolve";
+  font-weight: bold;
+  font-style: italic;
+  src: url(~assets/fonts/MADE-Evolve-Sans-Medium-EVO.otf) format("opentype");
+}
+@font-face {
+  font-family: "Evolve";
+  font-weight: 100;
+  src: url(~assets/fonts/MADE-Evolve-Sans-Thin.otf) format("opentype");
 }
 
+
+/* Font per titoli grandi */
 @font-face {
   font-family: "ITCAvantGardenPro";
-  src: local("Evolve"), url(~assets/fonts/ITCAvantGardePro-Bold.otf) format("opentype");
+  src: local("ITCAvantGardenPro"), url(~assets/fonts/ITCAvantGardePro-Bold.otf) format("opentype");
 }
 
 :root {
-  --blu: #014D81;
-  --blu-mare: #3E93BC;
-  --celeste: #A3DFF9;
-  --arancio: #FB5722;
-  --bianco: #dedcdc;
+  /* palette colori */
+  --primario: #1d3557;
+  --secondario: #457b9d;
+  --terziario: #a8dadc;
+  --accento: #e63946;
+  --sfondo: #FFF;
+  --bordo: #000;
+  --titolo: #000;
+  --testo: #000;
+  --link: #A8F;
+
+  --inclinazione: -20deg;
+  --anti-inclinazione: 20deg;
+  --vel-transizione: 500ms;
+  --stile-transizione: ease-in-out;
 }
 
+/* Evita ridimensionamenti con padding e margin */
 *, :before, :after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -40,22 +73,93 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: "Evolve", serif;
+  font-size: 1rem;
+  color: var(--testo);
 }
 
 a {
   text-decoration: none;
+  color: var(--link)
 }
 
+svg {
+  height: auto;
+}
+
+/* Dimensione mappa Google Maps (era 400px di default) */
+.GMap__Wrapper {
+  height: 100% !important;
+}
+
+
+/* Classi d'utilità */
+/* Struttura */
+.fullscreen {
+  height: 100vh;
+  width: 100vw;
+}
+
+.flex {
+  display: flex;
+}
 .flex-centro {
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+
+/* Testi */
+.titolo {
+  font-family: "Evolve", serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2rem;
+  color: var(--titolo);
+}
+.testo {
+  font-family: "Evolve", serif;
+  font-size: 1rem;
+  color: var(--testo);
+}
+.descrizione {
+  font-family: "Evolve", serif;
+  font-weight: 100;
+  font-size: 1rem;
+  color: var(--testo);
+}
+
+
+/* Visibilità */
+.cliccabile {
+  cursor: pointer;
+}
+
+.davanti {
+  z-index: 100;
+}
+.davanti2 {
+  z-index: 99;
+}
+.davanti3 {
+  z-index: 98;
 }
 
 .nascosto {
   display: none !important;
 }
 
-.GMap__Wrapper {
-  height: 100% !important;
+@media screen and (max-width: 600px) {
+  /* Dispositivi mobile */
+  .desktop {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .mobile {
+    display: none;
+  }
 }

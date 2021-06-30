@@ -4,10 +4,6 @@
 
 <script>
 export default {
-  name: 'Skiweg'
+  name: 'IconaSkiweg'
 }
 </script>
-
-<style scoped>
-
-</style>

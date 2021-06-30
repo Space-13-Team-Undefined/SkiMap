@@ -4,10 +4,6 @@
 
 <script>
 export default {
-  name: 'SciFondo'
+  name: 'IconaSciFondo'
 }
 </script>
-
-<style scoped>
-
-</style>

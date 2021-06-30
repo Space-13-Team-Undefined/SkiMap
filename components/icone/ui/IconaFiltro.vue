@@ -7,9 +7,3 @@ export default {
   name : 'IconaFiltro'
 }
 </script>
-
-<style scoped>
-#icona-filtro:hover {
-  cursor: pointer;
-}
-</style>

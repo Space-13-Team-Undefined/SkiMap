@@ -4,12 +4,6 @@
 
 <script>
 export default {
-  name: 'FrecciaIndietro'
+  name: 'IconaFrecciaIndietro'
 }
 </script>
-
-<style scoped>
-#freccia-indietro {
-  cursor: pointer;
-}
-</style>

@@ -1,94 +1,76 @@
 <template>
-  <div id="home">
-    <div id="logo">
-      <div id="logo-img-cont">
-        <img src="logo.png" id="logo-img">
+  <div id="home" class="fullscreen flex">
+
+    <div id="logo" class="flex-centro davanti">
+      <div id="logo-img-cont" class="flex-centro">
+        <img src="logo.png" id="logo-img" alt="Logo SkiMap">
       </div>
     </div>
-    <div id="sezioni" class="desktop">
-      <nuxt-link to="/piste">
-        <div class="sezione" id="piste">
-          <div class="nome">
-            PISTE
+
+    <div id="cont-divisione" class="desktop flex">
+      <nuxt-link to="/piste" id="piste" class="divisione cliccabile flex-centro">
+        <div class="velo-immagine">
+          <div class="nome-divisione flex-centro">
+            Piste
           </div>
         </div>
       </nuxt-link>
-      <nuxt-link to="/scuole">
-        <div class="sezione" id="scuole">
-          <div class="nome">
-            SCUOLE
+
+      <nuxt-link to="/scuole" id="scuole" class="divisione cliccabile flex-centro">
+        <div class="velo-immagine">
+          <div class="nome-divisione flex-centro">
+            <span>Scuole</span>
           </div>
         </div>
       </nuxt-link>
     </div>
-    <div id="home-mobile" class="mobile">
-      <div id="nav-mobile">
-        <nuxt-link to="/piste" id="piste-mobile" class="elem-nav-mobile">
-          <div class="link">
-            <PuntaFreccia style="transform: rotate(180deg); margin-right: 0.8rem"/>
-            <div>
-              Piste
-            </div>
+
+    <div id="cont-mob" class="mobile flex-centro ">
+      <div id="cont-divisione-mob" class="flex-centro">
+        <nuxt-link to="/piste" id="piste-mob" class="divisione flex-centro">
+          <div class="flex-centro cont-testo-divisione">
+            <IconaFreccia class="flex-centro" style="transform: rotate(180deg)" />
+            <span id="titolo-piste" class="titolo">
+            Piste
+          </span>
           </div>
         </nuxt-link>
-        <nuxt-link to="/scuole" id="scuole-mobile" class="elem-nav-mobile">
-          <div class="link">
-            <div>
+
+        <nuxt-link to="/scuole" class="divisione flex-centro">
+          <div class="flex-centro cont-testo-divisione">
+            <span id="titolo-scuole" class="titolo">
               Scuole
-            </div>
-            <PuntaFreccia style="margin-left: 0.8rem"/>
+            </span>
+            <IconaFreccia />
           </div>
         </nuxt-link>
+
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
+import IconaFreccia from "~/components/icone/ui/IconaFreccia";
 export default {
-  // test
+  components: {IconaFreccia}
 }
 </script>
 
 <style scoped>
-#home {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-}
-
 #logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: absolute;
   width: 100vw;
-  text-align: center;
-  font-size: 3em;
-  z-index: 100;
 }
-
-
 #logo-img-cont {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 1rem;
-  background-color: white;
-  width: fit-content;
-  height: fit-content;
-  border-radius: 1rem;
+  background-color: var(--sfondo);
 }
-
 
 @media screen and (max-width: 600px) {
-  .desktop {
-    display: none;
-  }
-
   #logo {
-    display: flex;
-    font-size: 5em;
+    font-size: 5rem;
   }
 
   #logo-img-cont {
@@ -96,103 +78,97 @@ export default {
     border-radius: 0;
   }
 
-  #home-mobile {
-    background-image: url("static/background-mobile.jpg");
+  #cont-mob {
+    background-image: url("static/bgMobile.jpg");
     background-size: cover;
     background-position: center;
     width: 100vw;
-    display: flex;
-    justify-content: center;
     align-items: flex-end;
   }
 
-  #nav-mobile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+  #cont-divisione-mob {
+    background-color: var(--sfondo);
     width: 100vw;
     height: 15vh;
   }
 
-  .elem-nav-mobile {
+  .divisione {
     height: 100%;
     width: 100%;
-    transform: skew(-20deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    transform: skew(var(--inclinazione));
   }
 
-  #piste-mobile {
-    border: 2px solid black;
+  #piste-mob {
+    border-color: var(--bordo);
+    border-style: dashed;
     border-width: 0 0.3rem 0 0;
   }
 
-  .link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: skew(20deg);
-    font-size: 2rem;
-    font-family: "Evolve", serif;
-    color: black;
+  .cont-testo-divisione {
+    transform: skew(var(--anti-inclinazione));
+  }
+
+  .titolo {
+    margin: 0 0.9rem;
+  }
+
+  .icona-freccia {
+    width: 2.2rem;
   }
 }
 
 @media screen and (min-width: 601px) {
-  .mobile {
-    display: none;
+  #logo {
+    top: 7vh;
+    font-size: 3rem;
   }
 
-  #logo {
-    top: 10%;
+  #logo-img-cont {
+    border-radius: 1rem;
   }
 
   #logo-img {
-    width: 9em;
+    width: 16rem;
   }
 
-  #sezioni {
-    display: flex;
-  }
-
-  .sezione {
+  .divisione {
     width: 50vw;
     height: 100vh;
     background-size: cover;
     background-position: center;
-    background-blend-mode: saturation;
-    transition: all 500ms ease-in-out;
   }
 
   #scuole {
-    background-image: url('static/baita.jpeg');
+    background-image: url('static/bgScuole.jpeg');
   }
 
   #piste {
-    background-image: url('static/background.jpg');
+    background-image: url('static/bgPiste.jpg');
   }
 
-  .nome {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .velo-immagine {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    transition: background-color var(--vel-transizione) var(--stile-transizione);
+  }
+
+  .nome-divisione {
+    width: 100%;
     height: 100vh;
-    font-size: 6em;
-    transition: all 400ms ease-in-out;
-    backdrop-filter: grayscale(100%) blur(5px);
+    font-size: 6rem;
     font-family: "ITCAvantGardenPro", serif;
-    color: #e63946;
+    color: white;
+    transition: all var(--vel-transizione) var(--stile-transizione);
   }
 
-  .sezione:hover {
-    cursor: pointer;
-  }
-
-  .sezione:hover .nome {
+  .divisione:hover .nome-divisione {
+    color: var(--accento);
     padding-top: 60vh;
-    backdrop-filter: grayscale(0%) blur(0);
+  }
+
+  .divisione:hover .velo-immagine {
+    background-color: rgba(0, 0, 0, 0);
   }
 }
 </style>

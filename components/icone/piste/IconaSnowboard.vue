@@ -4,9 +4,6 @@
 
 <script>
 export default {
-  name: 'SnowBoard'
+  name: 'IconaSnowboard'
 }
 </script>
-<style scoped>
-
-</style>

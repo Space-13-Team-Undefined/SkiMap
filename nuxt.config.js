@@ -1,7 +1,8 @@
+// Per prendere le variabili d'ambiente (file .env)
 require('dotenv').config()
 
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  // Header html globali (valgono per tutte le pagine): https://go.nuxtjs.dev/config-head
   head: {
     title: 'SkiMap',
     meta: [
@@ -15,51 +16,61 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  // Css globale: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/style/style.css',
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  // Plugin da caricare prima del rendering delle pagine: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  // Auto importazione del components: https://go.nuxtjs.dev/config-components
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/icone/piste',
+      '~/components/icone/ui'
+    ]
+  },
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+
+  // Moduli da "compilare" quando si utilizza il sito in ssr [server side rendering]: https://go.nuxtjs.dev/config-modules
   buildModules: [
+      // Modulo per le variabili d'ambiente ed i file .env
     '@nuxtjs/dotenv'
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
+  // Altri moduli: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
+    // Per richieste http: https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
+    // Per il supporto a webapp: https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+      // Per google maps: https://www.npmjs.com/package/nuxt-gmaps
     ['nuxt-gmaps', {
       key: process.env.CHIAVE_API_GOOGLE_MAPS,
-      //you can use libraries: ['places']
     }]
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  // Configurazione di Axios: https://go.nuxtjs.dev/config-axios
   axios: {},
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  // Configurazione webapp: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
       lang: 'en'
     }
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
+  // Configurazione per la build ssr: https://go.nuxtjs.dev/config-build
   build: {
   },
 
+  // Configurazione variabili d'ambiente
   dotenv: {
+    // Permette di utilizzare le variabili d'ambiente del computer direttamente senza necessità di metterle in un file .env (solo ssr)
     systemvars: true
   }
 }

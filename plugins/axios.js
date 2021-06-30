@@ -1,4 +1,4 @@
-const datiLombardiaAPIConfig = {
+const datiLombardiaConfigurazioneAPI = {
     baseURL: `https://www.dati.lombardia.it/resource/`,
     headers: {
         'X-App-Token': process.env.DATI_LOMBARDIA_TOKEN,
@@ -7,6 +7,8 @@ const datiLombardiaAPIConfig = {
 }
 
 export default function ({ $axios }, inject) {
-    const lombardiaAPI = $axios.create(datiLombardiaAPIConfig)
+    // Creo una configurazione per Axios (plugin per fare richieste http)
+    const lombardiaAPI = $axios.create(datiLombardiaConfigurazioneAPI)
+    // Injecto la configurazione in nuxt, così da poterla usare con `this.$lombardiaAPI` da qualsiasi pagina
     inject('lombardiaAPI', lombardiaAPI)
 }

@@ -4,10 +4,6 @@
 
 <script>
 export default {
-  name: 'CampoScuola'
+  name: 'IconaCamposcuola'
 }
 </script>
-
-<style scoped>
-
-</style>

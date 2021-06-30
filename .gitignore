@@ -89,5 +89,6 @@ sw.*
 # Vim swap files
 *.swp
 
-# File con chiavi API
-.env
+# Aggiunte:
+# File con chiavi e token API
+*.env

@@ -1,10 +1,10 @@
 <template>
-  <div id="piste">
+  <div id="piste" class="fullscreen flex">
     <div id="header" class="flex-centro">
       <nuxt-link to="/" id="indietro" class="flex-centro">
-        <FrecciaIndietro />
+        <IconaFrecciaIndietro />
       </nuxt-link>
-      <div id="titolo" class="flex-centro">
+      <div class="flex-centro titolo">
         Piste
       </div>
       <div id="button" class="flex-centro" v-on:click="filtroBottone()">
@@ -13,7 +13,7 @@
     </div>
 
     <div id="filtri" class="flex-centro nascosto">
-      <div id="tipologia" class="filtro" v-on:click="filtri('filtroTipologia')">
+      <div id="tipologia" class="filtro flex-centro" v-on:click="filtri('filtroTipologia')">
         <div class="nome-filtro">
           Tipologia
         </div>
@@ -21,28 +21,28 @@
           {{ tipologia }}
         </div>
       </div>
-      <div id="filtroTipologia" class="modificaFiltro">
-        <div class="icona" v-on:click="filtraTipologia(0)">
-          <CampoScuola />
+      <div id="filtroTipologia" class="modificaFiltro flex-centro">
+        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(0)">
+          <IconaCamposcuola />
         </div>
-        <div class="icona selezionato" v-on:click="filtraTipologia(1)">
-          <SciDiscesa />
+        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(1)">
+          <IconaSciDiscesa />
         </div>
-        <div class="icona" v-on:click="filtraTipologia(2)">
-          <SciFondo />
+        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(2)">
+          <IconaSciFondo />
         </div>
-        <div class="icona" v-on:click="filtraTipologia(3)">
-          <Skiweg />
+        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(3)">
+          <IconaSkiweg />
         </div>
-        <div class="icona" v-on:click="filtraTipologia(4)">
-          <SnowBoard/>
+        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(4)">
+          <IconaSnowboard/>
         </div>
       </div>
-      <div id="lunghezza" class="filtro" v-on:click="filtri('filtroLunghezza')">Lunghezza
+      <div id="lunghezza" class="filtro flex-centro" v-on:click="filtri('filtroLunghezza')">Lunghezza
       </div>
-      <div id="filtroLunghezza" class="modificaFiltro">modifica lunghezza</div>
-      <div id="difficolta" class="filtro" v-on:click="filtri('filtroDifficolta')">Difficoltà</div>
-      <div id="filtroDifficolta" class="modificaFiltro">modifica difficoltà</div>
+      <div id="filtroLunghezza" class="modificaFiltro flex-centro">modifica lunghezza</div>
+      <div id="difficolta" class="filtro flex-centro" v-on:click="filtri('filtroDifficolta')">Difficoltà</div>
+      <div id="filtroDifficolta" class="modificaFiltro flex-centro">modifica difficoltà</div>
     </div>
 
     <GMap
@@ -74,7 +74,16 @@
 </template>
 
 <script>
+import IconaCamposcuola from "~/components/icone/piste/IconaCamposcuola";
+import IconaSciDiscesa from "~/components/icone/piste/IconaSciDiscesa";
+import IconaSciFondo from "~/components/icone/piste/IconaSciFondo";
+import IconaSkiweg from "~/components/icone/piste/IconaSkiweg";
+import IconaSnowboard from "~/components/icone/piste/IconaSnowboard";
+import IconaFrecciaIndietro from "~/components/icone/ui/IconaFrecciaIndietro";
+import IconaFiltro from "~/components/icone/ui/IconaFiltro";
+
 export default {
+  components: {IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola},
   data() {
     return {
       datiPiste: {},
@@ -159,16 +168,10 @@ export default {
 
 <style scoped>
 #piste {
-    display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
 }
 #header {
     width: 100vw;
-
-    display: flex;
-    align-items: center;
     justify-content: space-between;
     border: 0.1rem solid black;
     border-width: 0 0 0.1rem 0;
@@ -180,23 +183,15 @@ export default {
   flex-grow: 1;
 }
 
-#titolo {
-  font-size: 2rem;
-  font-family: "Evolve", serif;
-}
-
 #filtri {
   width: 100vw;
-  display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--sfondo);
 }
 
 .filtro {
   width: 100vw;
   font-size: 1.5rem;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   height: 2rem;
   border: 0.1rem solid black;
@@ -206,21 +201,14 @@ export default {
 }
 
 .modificaFiltro{
-  display: flex;
-  align-items: center;
   justify-content: space-evenly;
   width: 100vw;
-  font-size: 1em;
-  border: 0.1em solid black;
-  border-width: 0 0 0.1em 0;
+  border: 0.1rem solid black;
+  border-width: 0 0 0.1rem 0;
   padding: 0.4rem;
 }
 
 .icona{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   border-radius: 7px;
 }
 
@@ -234,7 +222,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.2);
 }
 .icona:hover {
-  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
