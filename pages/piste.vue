@@ -2,13 +2,13 @@
   <div id="piste" class="fullscreen flex">
 
     <div id="header" class="flex-centro">
-      <nuxt-link to="/" id="indietro" class="flex-centro">
+      <nuxt-link to="/" id="indietro" class="flex-centro cliccabile">
         <IconaFrecciaIndietro />
       </nuxt-link>
       <div class="flex-centro titolo">
         Piste
       </div>
-      <div id="button" class="flex-centro" v-on:click="filtriChiusi = !filtriChiusi">
+      <div id="button" class="flex-centro cliccabile" v-on:click="filtriChiusi = !filtriChiusi">
         <IconaFiltro v-if="filtriChiusi"/>
         <IconaX v-else/>
       </div>
@@ -59,51 +59,16 @@
       <div class="riga-f flex-centro cliccabile" v-on:click="apriOpzioniFiltro(2)">
         <div class="nome-filtro flex-centro">
           <IconaFreccia />
-          Lunghezza
+          Lunghezza minima
         </div>
         <div class="valore-filtro flex-centro">
           {{ lunghezza }}m
         </div>
       </div>
       <div class="opzioni-filtro nascosto">
-        <Slider id="slider-lunghezza" :max="lunghezzaMax" :min="lunghezzaMin" :value="lunghezza" @input.native="cambiaLunghezza()" />
+        <Slider id="slider-lunghezza" :max="lunghezzaMax" :min="lunghezzaMin" :value="lunghezza" @input.native="cambiaLunghezza()"/>
       </div>
     </div>
-
-    <!--
-    <div id="filtri" class="flex-centro nascosto">
-      <div id="tipologia" class="filtro flex-centro" v-on:click="filtri('filtroTipologia')">
-        <div class="nome-filtro">
-          Tipologia
-        </div>
-        <div class="filtro-selezionato">
-          {{ tipologia }}
-        </div>
-      </div>
-      <div id="filtroTipologia" class="modificaFiltro flex-centro">
-        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(0)">
-          <IconaCamposcuola />
-        </div>
-        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(1)">
-          <IconaSciDiscesa />
-        </div>
-        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(2)">
-          <IconaSciFondo />
-        </div>
-        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(3)">
-          <IconaSkiweg />
-        </div>
-        <div class="icona flex-centro cliccabile" v-on:click="filtraTipologia(4)">
-          <IconaSnowboard/>
-        </div>
-      </div>
-      <div id="lunghezza" class="filtro flex-centro" v-on:click="filtri('filtroLunghezza')">Lunghezza
-      </div>
-      <div id="filtroLunghezza" class="modificaFiltro flex-centro">modifica lunghezza</div>
-      <div id="difficolta" class="filtro flex-centro" v-on:click="filtri('filtroDifficolta')">Difficoltà</div>
-      <div id="filtroDifficolta" class="modificaFiltro flex-centro">modifica difficoltà</div>
-    </div>
-    -->
 
     <GMap
         id="mappa"
@@ -161,8 +126,8 @@ export default {
       tipologia: "Discesa",
       difficolta: "Bassa",
       lunghezza: 1000,
-      lunghezzaMax: 0,
-      lunghezzaMin: 0,
+      lunghezzaMax: 10000,
+      lunghezzaMin: 1,
 
       // Maps
       currentLocation: {},
@@ -215,11 +180,10 @@ export default {
         () => console.error("geolocalizzazione disattivata")
     )
 
-    this.$lombardiaAPI.get('8c8w-y5ce.json?$select=lunghezza_pista')
+    this.$lombardiaAPI.get('8c8w-y5ce.json')
         .then(risposta => {
           let dati = risposta.data;
-          this.lunghezzaMin = parseInt(dati[4].lunghezza_pista);
-          this.lunghezzaMax = parseInt(dati[dati.length - 2].lunghezza_pista);
+
         })
   },
   methods: {

@@ -27,5 +27,7 @@ export default {
 </script>
 
 <style scoped>
-
+input[type=range]::-moz-range-track {
+  background-color: black;
+}
 </style>
