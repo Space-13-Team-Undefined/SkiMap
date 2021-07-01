@@ -80,6 +80,10 @@ html {
   z-index: -1000;
 }
 
+body {
+  position: fixed;
+}
+
 html, body {
   overscroll-behavior: none;
   margin: 0;

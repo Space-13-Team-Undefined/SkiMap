@@ -25,7 +25,7 @@
       </nuxt-link>
     </div>
 
-    <div id="cont-mob" class="mobile flex-centro ">
+    <div id="cont-mob" class="mobile flex-centro maxDim">
       <div id="cont-divisione-mob" class="flex-centro">
         <nuxt-link to="/piste" id="piste-mob" class="divisione flex-centro">
           <div class="flex-centro cont-testo-divisione">
