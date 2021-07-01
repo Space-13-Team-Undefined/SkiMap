@@ -215,7 +215,39 @@ export default {
     cambiaLunghezza() {
       console.log(document.getElementById("slider-lunghezza").value)
       this.lunghezza = parseInt(document.getElementById("slider-lunghezza").value)
+    },
+
+    filtraDifficolta(id){
+      this.filtriModificati = true
+
+      if(id === 1)
+        this.difficolta = "Blu";
+      else if(id === 2)
+        this.difficolta = "Rossa";
+      else
+        this.difficolta = "Nera";
+    },
+
+    filtraPiste() {
+      this.filtriModificati = false
+      this.pisteFiltrate = this.datiPiste.filter(pista => this.filtroPerPiste(pista))
+      this.locations = this.pisteFiltrate.map(pista => {
+        return {
+          lat: pista.x_start_pista,
+          lng: pista.y_start_pista
+        }
+      })
+    },
+
+    filtroPerPiste(pista) {
+      return pista.tipologia_pista.toLowerCase() === this.tipologia.toLowerCase()
+      && (
+          pista.difficolta_pista.toLowerCase().includes(this.difficolta.toLowerCase())
+          || this.difficolta === "Rossa" && pista.difficolta_pista.toLowerCase() === "non definito"
+      )
+      && parseInt(pista.lunghezza_pista) >= this.lunghezza
     }
+
   }
 }
 </script>
