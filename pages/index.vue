@@ -25,7 +25,7 @@
       </nuxt-link>
     </div>
 
-    <div id="cont-mob" class="mobile flex-centro maxDim">
+    <div id="cont-mob" class="mobile maxDim flex-centro">
       <div id="cont-divisione-mob" class="flex-centro">
         <nuxt-link to="/piste" id="piste-mob" class="divisione flex-centro">
           <div class="flex-centro cont-testo-divisione">
@@ -59,6 +59,9 @@ export default {
 </script>
 
 <style scoped>
+#home {
+  position: relative;
+}
 #logo {
   position: absolute;
   width: 100vw;
@@ -80,9 +83,8 @@ export default {
 
   #cont-mob {
     background-image: url("static/bgMobile.jpg");
-    background-size: cover;
     background-position: center;
-    width: 100vw;
+    background-size: cover;
     align-items: flex-end;
   }
 
@@ -90,12 +92,15 @@ export default {
     background-color: var(--sfondo);
     width: 100vw;
     height: 15vh;
+    /* Per il fatto che i div sono inclinati */
+    overflow: hidden;
   }
 
   .divisione {
     height: 100%;
     width: 100%;
     transform: skew(var(--inclinazione));
+    overflow: hidden;
   }
 
   #piste-mob {

@@ -75,22 +75,24 @@ Font Evolve:
 }
 
 html {
-  width: 100vw;
   background-color: var(--sfondo);
   z-index: -1000;
-}
-
-body {
-  position: fixed;
-}
-
-html, body {
-  overscroll-behavior: none;
-  margin: 0;
-  padding: 0;
   font-family: "Evolve", serif;
   font-size: 1rem;
   color: var(--testo);
+}
+
+html, body {
+  height: 100%;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overscroll-behavior: none;
+}
+
+#__nuxt, #__layout {
+  height: 100%;
+  width: 100%;
 }
 
 img {
@@ -110,7 +112,7 @@ svg {
 /* Classi d'utilità */
 /* Struttura */
 .fullscreen {
-  height: 100vh;
+  height: 100%; /* Per evitare problemi nei telefoni */
   width: 100vw;
 }
 .maxDim {
