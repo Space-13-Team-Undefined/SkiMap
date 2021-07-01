@@ -91,11 +91,6 @@ svg {
   height: auto;
 }
 
-/* Dimensione mappa Google Maps (era 400px di default) */
-.GMap__Wrapper {
-  height: 100% !important;
-}
-
 
 /* Classi d'utilità */
 /* Struttura */

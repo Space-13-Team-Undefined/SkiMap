@@ -1,7 +1,7 @@
 <template>
   <div id="piste" class="fullscreen flex">
 
-    <div id="header" class="flex-centro">
+    <div id="header" class="flex-centro davanti2">
       <nuxt-link to="/" id="indietro" class="flex-centro cliccabile">
         <IconaFrecciaIndietro />
       </nuxt-link>
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div id="filtri" class="flex-centro" v-bind:class="filtriChiusi ? 'nascosto' : ''">
+    <div id="filtri" class="flex-centro davanti" v-bind:class="filtriChiusi ? 'nascosto' : ''">
 
       <div class="riga-f flex-centro cliccabile" v-on:click="apriOpzioniFiltro(0)">
         <div class="nome-filtro flex-centro">
@@ -71,6 +71,25 @@
         <Slider id="slider-lunghezza" :max="lunghezzaMax" :min="lunghezzaMin" :value="lunghezza" @input.native="filtraLunghezza()"/>
       </div>
     </div>
+
+    <div id="mappa" />
+
+    <div id="pista-popup" class="flex-centro" v-if="pistaAperta !== null">
+      <div id="nome-pista" class="titolo">
+        {{ pistaAperta.nome_pista.charAt(0).toUpperCase() + pistaAperta.nome_pista.toLowerCase().slice(1) }}
+      </div>
+      <div id="localita-pista" class="descrizione">
+        {{ pistaAperta.comune }} ({{ pistaAperta.provincia }})
+      </div>
+      <div id="menu-pista" class="flex-centro">
+        <div id="chiudi-popup" class="cliccabile flex-centro" v-on:click="pistaAperta = null" >
+          Chiudi
+        </div>
+        <div id="visualizza-info" class="cliccabile flex-centro">
+          Visualizza
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -85,7 +104,7 @@ import IconaFiltro from "~/components/icone/ui/IconaFiltro";
 import IconaX from "@/components/icone/ui/IconaX";
 import IconaFreccia from "@/components/icone/ui/IconaFreccia";
 import Slider from "@/components/ui/Slider";
-const apiKey = process.env.CHIAVE_API_GOOGLE_MAPS;
+const chiaveGMaps = process.env.CHIAVE_API_GOOGLE_MAPS;
 
 export default {
   components: {
@@ -93,6 +112,16 @@ export default {
     IconaFreccia,
     IconaX,
     IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola},
+  head() {
+    return {
+      script: [
+        {
+          src: `https://maps.googleapis.com/maps/api/js?key=${chiaveGMaps}&libraries=&v=weekly`,
+          defer: true
+        }
+      ]
+    };
+  },
   data() {
     return {
       // OpenData
@@ -108,13 +137,11 @@ export default {
       lunghezzaMax: 10000,
       lunghezzaMin: 1,
 
-      // Maps
-      locations: [
-        {
-          lat: 46.54754835725146,
-          lng: 10.1375703079666
-        },
-      ],
+      // Mappa
+      mappa: {},
+      pistaAperta: null,
+      marcatori: [],
+      locations: [],
     }
   },
   mounted() {
@@ -191,7 +218,7 @@ export default {
 
     filtraTipologia(indice) {
       this.filtriModificati = true;
-      const tipologie = ["Camposcuola", "Discesa", "Sci di fondo", "Skiweg", "Snowboard"];
+      const tipologie = ["Campo Scuola", "Discesa", "Fondo", "Skiweg", "Snowboard"];
       this.tipologia = tipologie[indice];
     },
 
@@ -215,12 +242,9 @@ export default {
     filtraPiste() {
       this.filtriModificati = false
       this.pisteFiltrate = this.datiPiste.filter(pista => this.filtroPerPiste(pista))
-      this.locations = this.pisteFiltrate.map(pista => {
-        return {
-          lat: pista.x_start_pista,
-          lng: pista.y_start_pista
-        }
-      })
+
+      this.pulisciMarcatori();
+      this.caricaMarcatori();
     },
 
     filtroPerPiste(pista) {
@@ -230,6 +254,10 @@ export default {
           || this.difficolta === "Rossa" && pista.difficolta_pista.toLowerCase() === "non definito"
       )
       && parseInt(pista.lunghezza_pista) >= this.lunghezza
+    },
+
+    infoPista(id) {
+      return this.datiPiste.find(pista => pista.identificativo === id)
     }
 
   }
@@ -242,11 +270,13 @@ export default {
 }
 
 #header {
-    width: 100vw;
-    justify-content: space-between;
-    border: 0.1rem solid black;
-    border-width: 0 0 0.1rem 0;
-    padding: 0.5rem 0.7rem;
+  width: 100vw;
+  height: 5%;
+  justify-content: space-between;
+  border: 0.1rem solid black;
+  border-width: 0 0 0.1rem 0;
+  padding: 0.5rem 0.7rem;
+  background-color: var(--sfondo);
 }
 
 /* Filtri */
@@ -320,8 +350,10 @@ export default {
 
 
 #mappa {
-  position: relative;
-  flex-grow: 1;
+  position: absolute;
+  width: 100vw;
+  height: 95%;
+  top: 5%;
 }
 #pista-popup{
   position: absolute;
@@ -369,10 +401,14 @@ export default {
 @media screen and (min-width: 601px) {
   #filtri {
     align-self: flex-end;
-    width: 40%;
+    width: 25rem;
     border-color: var(--bordo);
     border-style: solid;
     border-width: 0 0 0 0.2rem;
+  }
+
+  #pista-popup {
+    width: 35vw;
   }
 }
 </style>

@@ -48,11 +48,7 @@ export default {
     // Per richieste http: https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // Per il supporto a webapp: https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
-      // Per google maps: https://www.npmjs.com/package/nuxt-gmaps
-    ['nuxt-gmaps', {
-      key: process.env.CHIAVE_API_GOOGLE_MAPS,
-    }]
+    '@nuxtjs/pwa'
   ],
 
   // Configurazione di Axios: https://go.nuxtjs.dev/config-axios
