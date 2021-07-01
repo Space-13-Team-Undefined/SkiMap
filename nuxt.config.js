@@ -13,6 +13,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+        src: `https://maps.googleapis.com/maps/api/js?key=${process.env.CHIAVE_API_GOOGLE_MAPS}`,
+        async: true
+      }
     ]
   },
 

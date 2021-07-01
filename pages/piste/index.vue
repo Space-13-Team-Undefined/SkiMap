@@ -104,24 +104,12 @@ import IconaFiltro from "@/components/icone/ui/IconaFiltro";
 import IconaX from "@/components/icone/ui/IconaX";
 import IconaFreccia from "@/components/icone/ui/IconaFreccia";
 import Slider from "@/components/ui/Slider";
-const chiaveGMaps = process.env.CHIAVE_API_GOOGLE_MAPS;
-
 export default {
   components: {
     Slider,
     IconaFreccia,
     IconaX,
     IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola},
-  head() {
-    return {
-      script: [
-        {
-          src: `https://maps.googleapis.com/maps/api/js?key=${chiaveGMaps}`,
-          async: true
-        }
-      ]
-    };
-  },
   data() {
     return {
       // OpenData
