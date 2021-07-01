@@ -151,6 +151,17 @@ svg {
   color: var(--testo);
 }
 
+::-moz-selection {
+  color: white;
+  background: var(--accento);
+}
+
+::selection {
+  color: white;
+  background: var(--accento);
+}
+
+
 
 /* Visibilità */
 .cliccabile {
@@ -169,6 +180,11 @@ svg {
 
 .nascosto {
   display: none !important;
+}
+
+/* Occupa spazio */
+.invisibile {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 600px) {

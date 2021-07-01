@@ -85,22 +85,22 @@
         <div id="chiudi-popup" class="cliccabile flex-centro" v-on:click="pistaAperta = null" >
           Chiudi
         </div>
-        <div id="visualizza-info" class="cliccabile flex-centro">
+        <nuxt-link :to="'/piste/'+pistaAperta.identificativo" id="visualizza-info" class="cliccabile flex-centro">
           Visualizza
-        </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import IconaCamposcuola from "~/components/icone/piste/IconaCamposcuola";
-import IconaSciDiscesa from "~/components/icone/piste/IconaSciDiscesa";
-import IconaSciFondo from "~/components/icone/piste/IconaSciFondo";
-import IconaSkiweg from "~/components/icone/piste/IconaSkiweg";
-import IconaSnowboard from "~/components/icone/piste/IconaSnowboard";
-import IconaFrecciaIndietro from "~/components/icone/ui/IconaFrecciaIndietro";
-import IconaFiltro from "~/components/icone/ui/IconaFiltro";
+import IconaCamposcuola from "@/components/icone/piste/IconaCamposcuola";
+import IconaSciDiscesa from "@/components/icone/piste/IconaSciDiscesa";
+import IconaSciFondo from "@/components/icone/piste/IconaSciFondo";
+import IconaSkiweg from "@/components/icone/piste/IconaSkiweg";
+import IconaSnowboard from "@/components/icone/piste/IconaSnowboard";
+import IconaFrecciaIndietro from "@/components/icone/ui/IconaFrecciaIndietro";
+import IconaFiltro from "@/components/icone/ui/IconaFiltro";
 import IconaX from "@/components/icone/ui/IconaX";
 import IconaFreccia from "@/components/icone/ui/IconaFreccia";
 import Slider from "@/components/ui/Slider";
@@ -133,7 +133,7 @@ export default {
       filtriModificati: false,
       tipologia: "Discesa",
       difficolta: "Blu",
-      lunghezza: 1000,
+      lunghezza: 1,
       lunghezzaMax: 10000,
       lunghezzaMin: 1,
 
@@ -166,6 +166,7 @@ export default {
           lng: parseInt(this.datiPiste[parseInt(this.datiPiste.length / 5)].y_start_pista)
         },
         zoom: 10,
+        fullscreenControl:false
       })
     },
 
