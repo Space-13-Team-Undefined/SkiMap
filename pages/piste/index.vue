@@ -49,7 +49,7 @@
           Difficoltà
         </div>
         <div class="valore-filtro flex-centro">
-          {{ difficolta }} {{ difficolta === "Blu" ? "(facile)" : difficolta === "Rossa" ? "(intermedia)" : "(difficile)"}}
+          {{ difficolta }} {{ difficolta === "Blu" ? "(facile)" : difficolta === "Rossa" ? "(intermedia)" : difficolta === "Nera" ? "(difficile)" : ""}}
         </div>
       </div>
       <div class="opzioni-filtro nascosto flex-centro">
@@ -120,8 +120,8 @@ export default {
       // Filtri
       filtriChiusi: true,
       filtriModificati: false,
-      tipologia: "Discesa",
-      difficolta: "Rossa",
+      tipologia: "Qualsiasi",
+      difficolta: "Qualsiasi",
       lunghezza: 1,
       lunghezzaMax: 10000,
       lunghezzaMin: 1,
@@ -137,13 +137,12 @@ export default {
     this.$lombardiaAPI.get('8c8w-y5ce.json')
         .then(risposta => {
           this.datiPiste = risposta.data;
+          this.pisteFiltrate = this.datiPiste
           this.caricaMappa();
+          this.caricaMarcatori()
         })
   },
   mounted() {
-    this.filtraTipologia(1)
-    this.filtraDifficolta(1)
-
     setInterval(() => {
       if (this.filtriModificati) {
         this.filtraPiste()
@@ -233,7 +232,6 @@ export default {
 
     filtraLunghezza() {
       this.filtriModificati = true
-
       this.lunghezza = parseInt(document.getElementById("slider-lunghezza").value)
     },
 
@@ -272,11 +270,6 @@ export default {
       )
       && parseInt(pista.lunghezza_pista) >= this.lunghezza
     },
-
-    infoPista(id) {
-      return this.datiPiste.find(pista => pista.identificativo === id)
-    }
-
   }
 }
 </script>

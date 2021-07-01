@@ -170,6 +170,13 @@ export default {
   margin-right: 0.3rem;
 }
 
+svg {
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 
 @media screen and (max-width: 600px) {
   .invisibile {
