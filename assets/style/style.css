@@ -55,7 +55,7 @@ Font Evolve:
   --bordo: #000;
   --titolo: #000;
   --testo: #000;
-  --link: #A8F;
+  --link: #000;
 
   --diff-blue: #4361ee;
   --diff-rosso: #e63946;
@@ -102,6 +102,16 @@ img {
 a {
   text-decoration: none;
   color: var(--link)
+}
+.cliccabile:hover {
+  color: var(--secondario);
+}
+.cliccabile:hover svg {
+  stroke: var(--secondario);
+}
+
+a:hover {
+  color: var(--secondario) !important;
 }
 
 svg {

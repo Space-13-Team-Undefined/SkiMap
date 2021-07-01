@@ -53,9 +53,9 @@
         </div>
       </div>
       <div class="opzioni-filtro nascosto flex-centro">
+        <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(0)"/>
         <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(1)"/>
         <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(2)"/>
-        <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(3)"/>
       </div>
 
       <div class="riga-f flex-centro cliccabile" v-on:click="apriOpzioniFiltro(2)">
@@ -109,7 +109,8 @@ export default {
     Slider,
     IconaFreccia,
     IconaX,
-    IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola},
+    IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola
+  },
   data() {
     return {
       // OpenData
@@ -120,7 +121,7 @@ export default {
       filtriChiusi: true,
       filtriModificati: false,
       tipologia: "Discesa",
-      difficolta: "Blu",
+      difficolta: "Rossa",
       lunghezza: 1,
       lunghezzaMax: 10000,
       lunghezzaMin: 1,
@@ -132,19 +133,22 @@ export default {
       locations: [],
     }
   },
+  beforeMount() {
+    this.$lombardiaAPI.get('8c8w-y5ce.json')
+        .then(risposta => {
+          this.datiPiste = risposta.data;
+          this.caricaMappa();
+        })
+  },
   mounted() {
+    this.filtraTipologia(1)
+    this.filtraDifficolta(1)
 
     setInterval(() => {
       if (this.filtriModificati) {
         this.filtraPiste()
       }
     }, 2000)
-
-    this.$lombardiaAPI.get('8c8w-y5ce.json')
-        .then(risposta => {
-          this.datiPiste = risposta.data;
-          this.caricaMappa();
-        })
   },
   methods: {
     caricaMappa() {
@@ -159,6 +163,8 @@ export default {
     },
 
     caricaMarcatori() {
+      const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle fill="#f00" cx="11.5" cy="8.5" r="5.5"/><path d="M11.5 14v7"/></svg>';
+
       for(let i=0; i<this.pisteFiltrate.length; i++) {
         const pista = this.pisteFiltrate[i]
         const marcatore = new google.maps.Marker({
@@ -168,6 +174,10 @@ export default {
           },
           map: this.mappa,
           title: pista.nome_pista,
+          icon: {
+            url: 'data:image/svg+xml;charset=UTF-8;base64,' + btoa(svg),
+            scaledSize: new google.maps.Size(35, 35)
+          },
         });
 
         marcatore.addListener("click", () => {
@@ -202,12 +212,22 @@ export default {
           document.getElementsByClassName("icona-freccia")[i].style.transform = "rotate(0deg)";
           righeOpzioniFiltri[i].classList.add("nascosto")
         }
-      } //test heroku 4
+      }
     },
 
     filtraTipologia(indice) {
       this.filtriModificati = true;
+
       const tipologie = ["Campo Scuola", "Discesa", "Fondo", "Skiweg", "Snowboard"];
+
+      const iconeTipologie = document.getElementsByClassName("icona-opzione")
+      for (let i=0; i<iconeTipologie.length; i++) {
+        if (i === indice)
+          iconeTipologie[i].classList.add("tipologia-selezionata")
+        else
+          iconeTipologie[i].classList.remove("tipologia-selezionata")
+      }
+
       this.tipologia = tipologie[indice];
     },
 
@@ -217,12 +237,20 @@ export default {
       this.lunghezza = parseInt(document.getElementById("slider-lunghezza").value)
     },
 
-    filtraDifficolta(id){
+    filtraDifficolta(indice){
       this.filtriModificati = true
 
-      if(id === 1)
+      const bottoniDifficoltà = document.getElementsByClassName("radio-difficolta")
+      for (let i=0; i<bottoniDifficoltà.length; i++) {
+        if (i === indice)
+          bottoniDifficoltà[i].classList.add("difficolta-selezionata")
+        else
+          bottoniDifficoltà[i].classList.remove("difficolta-selezionata")
+      }
+
+      if(indice === 0)
         this.difficolta = "Blu";
-      else if(id === 2)
+      else if(indice === 1)
         this.difficolta = "Rossa";
       else
         this.difficolta = "Nera";
@@ -305,9 +333,12 @@ export default {
   width: 3rem;
   padding: 0.5rem;
 }
-.icona-opzione:hover {
-  border-radius: 0.6rem;
+.icona-opzione:hover, .tipologia-selezionata {
+  border-radius: 1rem;
   background-color: var(--terziario);
+}
+.icona-opzione:hover svg {
+  stroke: black;
 }
 
 .radio-difficolta {
@@ -329,7 +360,7 @@ export default {
   background-color: var(--diff-nero);
 }
 
-.radio-difficolta:hover {
+.radio-difficolta:hover, .difficolta-selezionata {
   opacity: 1;
 }
 

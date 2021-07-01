@@ -92,7 +92,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     this.$lombardiaAPI.get(`8c8w-y5ce.json?identificativo=${this.$route.params.idPista}`)
       .then(risposta => {
         this.pista = risposta.data[0]
