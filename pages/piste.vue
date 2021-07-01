@@ -116,8 +116,8 @@ export default {
     return {
       script: [
         {
-          src: `https://maps.googleapis.com/maps/api/js?key=${chiaveGMaps}&libraries=&v=weekly`,
-          defer: true
+          src: `https://maps.googleapis.com/maps/api/js?key=${chiaveGMaps}`,
+          async: true
         }
       ]
     };
@@ -271,17 +271,19 @@ export default {
 
 #header {
   width: 100vw;
-  height: 5%;
+  height: 4rem;
   justify-content: space-between;
   border: 0.1rem solid black;
   border-width: 0 0 0.1rem 0;
-  padding: 0.5rem 0.7rem;
+  padding: 1rem 0.7rem;
   background-color: var(--sfondo);
 }
 
 /* Filtri */
 #filtri {
+  position: absolute;
   width: 100vw;
+  top: 4rem;
   flex-direction: column;
   background-color: var(--sfondo);
 }
@@ -350,10 +352,8 @@ export default {
 
 
 #mappa {
-  position: absolute;
   width: 100vw;
-  height: 95%;
-  top: 5%;
+  flex-grow: 1;
 }
 #pista-popup{
   position: absolute;
