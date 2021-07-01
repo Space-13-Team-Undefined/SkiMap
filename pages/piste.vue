@@ -213,7 +213,7 @@ export default {
           document.getElementsByClassName("icona-freccia")[i].style.transform = "rotate(0deg)";
           righeOpzioniFiltri[i].classList.add("nascosto")
         }
-      } //test heroku
+      } //test heroku 3
     },
 
     filtraTipologia(indice) {
