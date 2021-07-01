@@ -5,7 +5,7 @@
     </div>
 
     <div id="bottone-maps" class="flex-centro davanti cliccabile">
-      Maps
+      <IconaMaps id="icona-maps"/>
     </div>
 
     <div id="header" class="flex-centro">
@@ -21,8 +21,10 @@
     <!--
     Località (provincia e comune)
     comprensorio
+
     innevameto artificiale
     servizio soccorso
+
     quota
     lunghezza pista
     pendenza media / pendenza massima
@@ -30,8 +32,51 @@
     larghezza media
     -->
     <div id="cont-informazioni" class="flex">
-      <div id="titolo-informazioni">
-        Informazioni pista:
+      <div class="titolo-informazioni titolo">
+        Località
+      </div>
+      <div class="informazioni">
+        <div class="icona-info flex">
+          <IconaTrattino /> Comune: {{ pista.comune }} ({{ pista.provincia }})
+        </div>
+        <div class="icona-info flex">
+          <IconaTrattino /> Comprensorio: {{ pista.comprensorio }}
+        </div>
+      </div>
+      <div class="titolo-informazioni titolo">
+        Servizi
+      </div>
+      <div class="informazioni">
+        <div class="icona-info flex">
+          <IconaCheck v-if="pista.innevamento_artificiale === 'S'" />
+          <IconaX v-else />
+          Innevamento artificiale
+        </div>
+        <div class="icona-info flex">
+          <IconaCheck v-if="pista.servizio_di_soccorso !== 'N.P'" />
+          <IconaX v-else />
+          Servizio soccorso: {{ pista.servizio_di_soccorso }}
+        </div>
+      </div>
+      <div class="titolo-informazioni titolo">
+        Statistiche
+      </div>
+      <div class="informazioni">
+        <div class="icona-info flex">
+          <IconaTrattino /> Lunghezza: {{ pista.lunghezza_pista }}m
+        </div>
+        <div class="icona-info flex">
+          <IconaTrattino /> Larghezza media: {{ pista.larghezza_pista }}m
+        </div>
+        <div class="icona-info flex">
+          <IconaTrattino /> Pendenza media: {{ pista.pendenza_media }}°
+        </div>
+        <div class="icona-info flex">
+          <IconaTrattino /> Quota massima: {{ pista.quota_monte }}m
+        </div>
+        <div class="icona-info flex">
+          <IconaTrattino /> Dislivello: {{ pista.dislivello_medio }}m
+        </div>
       </div>
     </div>
 
@@ -47,8 +92,12 @@
 
 <script>
 import IconaFrecciaIndietro from "@/components/icone/ui/IconaFrecciaIndietro";
+import IconaCheck from "@/components/icone/ui/IconaCheck";
+import IconaMaps from "@/components/icone/ui/IconaMaps";
+import IconaX from "@/components/icone/ui/IconaX";
+import IconaTrattino from "@/components/icone/ui/IconaTrattino";
 export default {
-  components: {IconaFrecciaIndietro},
+  components: {IconaTrattino, IconaX, IconaMaps, IconaCheck, IconaFrecciaIndietro},
   data() {
     return {
       pista: {
@@ -60,6 +109,7 @@ export default {
     this.$lombardiaAPI.get(`8c8w-y5ce.json?identificativo=${this.$route.params.idPista}`)
       .then(risposta => {
         this.pista = risposta.data[0]
+        console.log(this.pista)
       })
     .catch(errore => {
       // TODO: Gestire errore pista non trovata
@@ -86,15 +136,11 @@ export default {
 
 #bottone-maps {
   position: absolute;
-  top: 17.75vh;
-  left: 80%;
-  padding: 0.5rem 2rem;
-  background-color: var(--accento);
+  background-color: white;
   border: 2px solid black;
-  border-radius: 0.5rem;
-  font-size: 2rem;
+  border-radius: 3.125rem;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
-
 
 #header {
   width: 100vw;
@@ -102,7 +148,7 @@ export default {
   justify-content: space-between;
   padding: 0.5rem 1rem;
   border: 0.2rem solid var(--bordo);
-  border-width: 0 0 0.2rem 0;
+  border-width: 0.2rem 0 0.2rem 0;
 }
 #indietro {
   width: 2rem;
@@ -110,6 +156,58 @@ export default {
 }
 
 
+#cont-informazioni {
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
 
+.titolo-informazioni {
+  font-style: normal;
+  font-size: 1.8rem;
+  margin: 1rem 0 0.5rem 0;
+}
+
+#icona-maps{
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.icona-info {
+  align-items: center;
+  margin-bottom: 0.3rem;
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+}
+
+.icona-info svg {
+  margin-right: 0.3rem;
+}
+
+@media screen and (max-width: 600px) {
+  .invisibile {
+    display: none;
+  }
+
+  .icona-info {
+    font-size: 1.1rem;
+  }
+
+  #bottone-maps {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1.5rem;
+    padding: 0.5rem;
+    background-color: white;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  #bottone-maps {
+    left: 82vw;
+    top: 17.75vh;
+    padding: 0.5rem 2rem;
+  }
+}
 
 </style>
