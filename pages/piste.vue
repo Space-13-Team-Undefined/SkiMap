@@ -49,11 +49,13 @@
           Difficoltà
         </div>
         <div class="valore-filtro flex-centro">
-          {{ difficolta }}
+          {{ difficolta }} {{ difficolta === "Blu" ? "(facile)" : difficolta === "Rossa" ? "(intermedia)" : "(difficile)"}}
         </div>
       </div>
-      <div class="opzioni-filtro nascosto">
-
+      <div class="opzioni-filtro nascosto flex-centro">
+        <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(1)"/>
+        <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(2)"/>
+        <div class="radio-difficolta cliccabile" v-on:click="filtraDifficolta(3)"/>
       </div>
 
       <div class="riga-f flex-centro cliccabile" v-on:click="apriOpzioniFiltro(2)">
@@ -66,35 +68,9 @@
         </div>
       </div>
       <div class="opzioni-filtro nascosto">
-        <Slider id="slider-lunghezza" :max="lunghezzaMax" :min="lunghezzaMin" :value="lunghezza" @input.native="cambiaLunghezza()"/>
+        <Slider id="slider-lunghezza" :max="lunghezzaMax" :min="lunghezzaMin" :value="lunghezza" @input.native="filtraLunghezza()"/>
       </div>
     </div>
-
-    <GMap
-        id="mappa"
-        ref="gMap"
-        language="it"
-        :cluster="{options: {styles: clusterStyle}}"
-        :center="{lat: posizioneIniziale.lat, lng: posizioneIniziale.lng}"
-        :options="{fullscreenControl: false, styles: mapStyle}"
-        :zoom="10"
-    >
-      <GMapMarker
-          v-for="location in locations"
-          :key="location.id"
-          :position="{lat: location.lat, lng: location.lng}"
-          :options="{icon: location === currentLocation ? pins.selected : pins.notSelected}"
-          @click="currentLocation = location"
-      >
-        <GMapInfoWindow :options="{maxWidth: 100}">
-          <code>
-            lat: {{ location.lat }},
-            lng: {{ location.lng }}
-          </code>
-        </GMapInfoWindow>
-      </GMapMarker>
-      <GMapCircle :options="circleOptions"/>
-    </GMap>
   </div>
 </template>
 
@@ -109,6 +85,7 @@ import IconaFiltro from "~/components/icone/ui/IconaFiltro";
 import IconaX from "@/components/icone/ui/IconaX";
 import IconaFreccia from "@/components/icone/ui/IconaFreccia";
 import Slider from "@/components/ui/Slider";
+const apiKey = process.env.CHIAVE_API_GOOGLE_MAPS;
 
 export default {
   components: {
@@ -119,58 +96,31 @@ export default {
   data() {
     return {
       // OpenData
-      datiPiste: {},
+      datiPiste: [],
+      pisteFiltrate: [],
 
       // Filtri
       filtriChiusi: true,
+      filtriModificati: false,
       tipologia: "Discesa",
-      difficolta: "Bassa",
+      difficolta: "Blu",
       lunghezza: 1000,
       lunghezzaMax: 10000,
       lunghezzaMin: 1,
 
       // Maps
-      currentLocation: {},
-      posizioneIniziale: {
-        lat: 46.54754835725146,
-        lng: 10.1375703079666
-      },
       locations: [
         {
           lat: 46.54754835725146,
           lng: 10.1375703079666
         },
-        {
-          lat: 45.815,
-          lng: 15.9819
-        },
-        {
-          lat: 45.12,
-          lng: 16.21
-        }
       ],
-      pins: {
-        selected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
-        notSelected: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png"
-      },
-      circleOptions: {
-
-      },
-      mapStyle: [],
-      clusterStyle: [
-        {
-          url: "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png",
-          textColor: "#fff",
-          height: "100vh",
-          width: "100vw",
-        }
-      ]
     }
   },
   mounted() {
+    /*
     window.navigator.geolocation.getCurrentPosition(
         posizione => {
-          console.log(posizione)
           const coordinate = posizione.coords
           this.posizioneIniziale = {
             lat: coordinate.latitude,
@@ -179,11 +129,17 @@ export default {
         },
         () => console.error("geolocalizzazione disattivata")
     )
+    */
+
+    setInterval(() => {
+      if (this.filtriModificati) {
+        this.filtraPiste()
+      }
+    }, 2000)
 
     this.$lombardiaAPI.get('8c8w-y5ce.json')
         .then(risposta => {
-          let dati = risposta.data;
-
+          this.datiPiste = risposta.data;
         })
   },
   methods: {
@@ -208,12 +164,14 @@ export default {
     },
 
     filtraTipologia(indice) {
+      this.filtriModificati = true;
       const tipologie = ["Camposcuola", "Discesa", "Sci di fondo", "Skiweg", "Snowboard"];
       this.tipologia = tipologie[indice];
     },
 
-    cambiaLunghezza() {
-      console.log(document.getElementById("slider-lunghezza").value)
+    filtraLunghezza() {
+      this.filtriModificati = true
+
       this.lunghezza = parseInt(document.getElementById("slider-lunghezza").value)
     },
 
@@ -305,6 +263,29 @@ export default {
   background-color: var(--terziario);
 }
 
+.radio-difficolta {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  border: 0.15rem solid black;
+  padding: 0.3rem;
+  opacity: 0.6;
+}
+
+.radio-difficolta:nth-child(1) {
+  background-color: var(--diff-blue);
+}
+.radio-difficolta:nth-child(2) {
+  background-color: var(--diff-rosso);
+}
+.radio-difficolta:nth-child(3) {
+  background-color: var(--diff-nero);
+}
+
+.radio-difficolta:hover {
+  opacity: 1;
+}
+
 
 #slider-lunghezza {
   width: 90%;
@@ -315,5 +296,15 @@ export default {
 #mappa {
   position: relative;
   flex-grow: 1;
+}
+
+@media screen and (min-width: 601px) {
+  #filtri {
+    align-self: flex-end;
+    width: 40%;
+    border-color: var(--bordo);
+    border-style: solid;
+    border-width: 0 0 0 0.2rem;
+  }
 }
 </style>

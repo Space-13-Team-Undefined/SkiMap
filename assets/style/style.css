@@ -57,6 +57,10 @@ Font Evolve:
   --testo: #000;
   --link: #A8F;
 
+  --diff-blue: #4361ee;
+  --diff-rosso: #e63946;
+  --diff-nero: #03071e;
+
   --inclinazione: -20deg;
   --anti-inclinazione: 20deg;
   --vel-transizione: 500ms;
