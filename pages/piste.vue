@@ -118,18 +118,6 @@ export default {
     }
   },
   mounted() {
-    /*
-    window.navigator.geolocation.getCurrentPosition(
-        posizione => {
-          const coordinate = posizione.coords
-          this.posizioneIniziale = {
-            lat: coordinate.latitude,
-            lng: coordinate.longitude
-          }
-        },
-        () => console.error("geolocalizzazione disattivata")
-    )
-    */
 
     setInterval(() => {
       if (this.filtriModificati) {
@@ -140,9 +128,47 @@ export default {
     this.$lombardiaAPI.get('8c8w-y5ce.json')
         .then(risposta => {
           this.datiPiste = risposta.data;
+          this.caricaMappa();
         })
   },
   methods: {
+    caricaMappa() {
+      this.mappa = new google.maps.Map(document.getElementById("mappa"), {
+        center: {
+          lat: parseInt(this.datiPiste[parseInt(this.datiPiste.length / 5)].x_start_pista),
+          lng: parseInt(this.datiPiste[parseInt(this.datiPiste.length / 5)].y_start_pista)
+        },
+        zoom: 10,
+      })
+    },
+
+    caricaMarcatori() {
+      for(let i=0; i<this.pisteFiltrate.length; i++) {
+        const pista = this.pisteFiltrate[i]
+        const marcatore = new google.maps.Marker({
+          position: {
+            lat: parseFloat(pista.x_start_pista),
+            lng: parseFloat(pista.y_start_pista)
+          },
+          map: this.mappa,
+          title: pista.nome_pista,
+        });
+
+        marcatore.addListener("click", () => {
+          this.filtriChiusi = true
+          this.pistaAperta = pista
+        });
+
+        this.marcatori.push(marcatore);
+      }
+    },
+
+    pulisciMarcatori(){
+      for(let i=0; i<this.marcatori.length; i++) {
+        this.marcatori[i].setMap(null);
+      }
+    },
+
     apriOpzioniFiltro(indice) {
       const righeOpzioniFiltri = document.getElementsByClassName("opzioni-filtro");
       for (let i=0; i<righeOpzioniFiltri.length; i++) {
@@ -296,6 +322,48 @@ export default {
 #mappa {
   position: relative;
   flex-grow: 1;
+}
+#pista-popup{
+  position: absolute;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--sfondo);
+  border-radius: 0.4rem;
+  border: 0.2rem solid var(--bordo);
+}
+
+#nome-pista {
+  margin: 1rem 1rem 1.5rem 1rem;
+}
+
+#localita-pista {
+  margin: 0 1rem 1.3rem 1rem;
+}
+
+#menu-pista {
+  border: 2px solid var(--bordo);
+  border-width: 0.2rem 0 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+#chiudi-popup {
+  width: 100%;
+  border: 0.1rem dotted var(--bordo);
+  border-width: 0 0.2rem 0 0;
+  padding: 0.4rem;
+}
+#visualizza-info {
+  width: 100%;
+  padding: 0.4rem;
+}
+
+@media screen and (max-width: 600px) {
+  #pista-popup {
+    width: 70vw;
+  }
 }
 
 @media screen and (min-width: 601px) {
