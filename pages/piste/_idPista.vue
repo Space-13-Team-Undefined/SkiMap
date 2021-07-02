@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div id="piste-vicine" class="flex">
+    <div id="piste-vicine" class="flex" v-if="pisteComprensorio.length > 0">
       <div id="titolo-piste-vicine" class="flex-centro titolo">
         Nello stesso comprensorio
       </div>
@@ -113,7 +113,9 @@ export default {
     this.$lombardiaAPI.get(`8c8w-y5ce.json?identificativo=${this.$route.params.idPista}`)
       .then(risposta => {
         this.pista = risposta.data[0]
-        console.log(this.pista)
+
+        if (this.pista.comprensorio.toLowerCase() === "nessun comprensorio")
+          return
 
         this.$lombardiaAPI.get(`8c8w-y5ce.json?comprensorio=${this.pista.comprensorio}`)
             .then(risposta => {
@@ -130,7 +132,7 @@ export default {
         return
 
       const divScrollabile = document.getElementById("cont-piste-vicine")
-      const quantitaScroll = document.getElementsByClassName("elem-pista")[0].getBoundingClientRect().width + 10
+      const quantitaScroll = document.getElementsByClassName("elem-pista")[0].getBoundingClientRect().width
 
       if (avanti)
         divScrollabile.scrollBy({

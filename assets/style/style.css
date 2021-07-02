@@ -212,3 +212,25 @@ svg {
     display: none;
   }
 }
+
+@media screen and (min-width: 2000px) and (max-width: 2500px) {
+  :root { font-size: 20px; }
+}
+@media screen and (min-width: 2501px) and (max-width: 3000px) {
+  :root { font-size: 25px; }
+}
+@media screen and (min-width: 3001px) and (max-width: 3500px) {
+  :root { font-size: 30px; }
+}
+@media screen and (min-width: 3501px) and (max-width: 4000px) {
+  :root { font-size: 35px; }
+}
+@media screen and (min-width: 4001px) and (max-width: 4500px){
+  :root { font-size: 40px; }
+}
+@media screen and (min-width: 4501px) and (max-width: 5000px){
+  :root { font-size: 45px; }
+}
+@media screen and (min-width: 5001px){
+  :root { font-size: 50px; }
+}

@@ -4,7 +4,7 @@ require('dotenv').config()
 export default {
   // Header html globali (valgono per tutte le pagine): https://go.nuxtjs.dev/config-head
   head: {
-    title: 'SkiMap',
+    title: 'SkiMap Lombardia',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -63,8 +63,27 @@ export default {
 
   // Configurazione webapp: https://go.nuxtjs.dev/pwa
   pwa: {
+    meta: {
+      name: 'Skimap Lombardia',
+      lang: 'it'
+    },
     manifest: {
-      lang: 'en'
+      lang: 'it',
+      name: 'Skimap Lombardia',
+      shortcuts: [
+        {
+          name: "Cerca piste",
+          short_name: "Piste",
+          description: "Mostra tutte le piste della Lombardia",
+          url: "/piste",
+        },
+        {
+          name: "Cerca scuole di sci",
+          short_name: "Scuole",
+          description: "Mostra tutte le scuole di sci della Lombardia",
+          url: "/scuole",
+        }
+      ]
     }
   },
 
