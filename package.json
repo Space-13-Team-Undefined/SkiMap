@@ -28,8 +28,8 @@
     },
     {
       "name" : "Filippo Miraglia",
-      "email" : "filippo.miraglia@gmail.com"
-    },
+      "email" : "filippo.miraglia@iis-silva-ricci.edu.it"
+    }
   ],
   "scripts": {
     "dev": "nuxt",
