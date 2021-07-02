@@ -23,13 +23,13 @@
       "email" : "francesco.fragonas@gmail.com"
     },
     {
+      "name" : "Giacomo Pesenato",
+      "email" : "giacomopesenato@gmail.com"
+    },
+    {
       "name" : "Filippo Miraglia",
       "email" : "filippo.miraglia@gmail.com"
     },
-    {
-      "name" : "Giacomo Pesenato",
-      "email" : "giacomo.pesenato@gmail.com"
-    }
   ],
   "scripts": {
     "dev": "nuxt",
