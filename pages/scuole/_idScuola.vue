@@ -4,7 +4,7 @@
       <img id="img-pista" src="~/assets/img/bgPiste.jpg" alt="Immagine pista" class="desktop"/>
     </div>
 
-    <a :href="'http://www.google.com/maps/dir//' + pista.coordinate_x + ',' + pista.coordiante_y" target="_blank" id="bottone-maps" class="flex-centro davanti cliccabile">
+    <a :href="'http://www.google.com/maps/dir//' + pista.coordinate_x + ',' + pista.coordinate_y" target="_blank" id="bottone-maps" class="flex-centro davanti cliccabile">
       <IconaMaps id="icona-maps"/>
     </a>
 
