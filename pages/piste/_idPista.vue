@@ -50,7 +50,7 @@
       </div>
       <div class="informazioni">
         <div class="icona-info flex">
-          <IconaTrattino /> Lunghezza: {{ pista.lunghezza_pista }}m
+          <IconaTrattino /> Difficoltà: {{ pista.difficolta_pista}}
         </div>
         <div class="icona-info flex">
           <IconaTrattino /> Larghezza media: {{ pista.larghezza_pista }}m
@@ -101,6 +101,28 @@ export default {
     .catch(errore => {
       // TODO: Gestire errore pista non trovata
     })
+  },
+  methods:{
+    scrollaPiste(avanti){
+      if (this.pisteComprensorio.length === 0)
+        return
+
+      const divScrollabile = document.getElementById("cont-piste-vicine")
+      const quantitaScroll = document.getElementsByClassName("elem-pista")[0].getBoundingClientRect().width + 10
+
+      if (avanti)
+        divScrollabile.scrollBy({
+          top: 0,
+          left: quantitaScroll,
+          behavior: 'smooth'
+        });
+      else
+        divScrollabile.scrollBy({
+          top: 0,
+          left: -quantitaScroll,
+          behavior: 'smooth'
+        });
+    }
   }
 }
 </script>
