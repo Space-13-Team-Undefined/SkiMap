@@ -368,6 +368,7 @@ export default {
   width: 100vw;
   flex-grow: 1;
 }
+
 #pista-popup{
   position: absolute;
   flex-direction: column;

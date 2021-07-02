@@ -9,9 +9,9 @@
     </a>
 
     <div id="header" class="flex-centro davanti2">
-      <nuxt-link to="/piste" class="flex-centro cliccabile">
+      <div class="flex-centro cliccabile" v-on:click="$router.back()">
         <IconaFrecciaIndietro id="indietro" />
-      </nuxt-link>
+      </div>
       <div id="nome-pista" class="titolo flex-centro" >
         {{ pista.nome_pista.charAt(0).toUpperCase() + pista.nome_pista.toLowerCase().slice(1) }}
       </div>
@@ -119,7 +119,7 @@ export default {
 
         this.$lombardiaAPI.get(`8c8w-y5ce.json?comprensorio=${this.pista.comprensorio}`)
             .then(risposta => {
-              this.pisteComprensorio = risposta.data
+              this.pisteComprensorio = risposta.data.sort()
             })
       })
     .catch(errore => {

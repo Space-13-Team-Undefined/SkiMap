@@ -4,12 +4,16 @@ require('dotenv').config()
 export default {
   // Header html globali (valgono per tutte le pagine): https://go.nuxtjs.dev/config-head
   head: {
-    title: 'SkiMap Lombardia',
+    title: '',
+    titleTemplate: '%sSkiMap - Piste e scuole di sci della Lombardia',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'robots', content: 'noodp,noydir' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:description', property: 'og:description', content: 'Con SkiMap Lombardia trovi subito le piste perfette e le scuole di sci più vicine ad esse!' },
+      { name: 'author', content: 'Progetto Sp@ce 13' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'SkiMap - Piste e scuole di sci della Lombardia' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
