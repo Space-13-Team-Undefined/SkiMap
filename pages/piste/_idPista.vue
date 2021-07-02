@@ -366,12 +366,12 @@ svg {
   #cont-img {
     background: linear-gradient(315deg, #fc00ff 0%, #00dbde 74%);
     background-size: 400% 400%;
-    animation: gradient 20s ease infinite;
+    animation: gradient 10s ease infinite;
   }
 
   #img-pista {
-    height: 30vh;
-    margin: -5vh 0;
+    height: 35vh;
+    margin: -7vh 0;
     filter: opacity(95%);
   }
 

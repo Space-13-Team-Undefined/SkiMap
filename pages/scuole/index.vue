@@ -252,6 +252,11 @@ export default {
   background-color: var(--sfondo);
 }
 
+#header svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 /* Filtri */
 #filtri {
   position: absolute;
@@ -366,6 +371,10 @@ export default {
 #visualizza-info {
   width: 100%;
   padding: 0.4rem;
+}
+
+#chiudi-popup:hover {
+  color: var(--accento)
 }
 
 @media screen and (max-width: 600px) {

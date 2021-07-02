@@ -107,7 +107,7 @@ export default {
   }
 
   #cont-mob {
-    background-image: url("static/bgMobile.jpg");
+    background-image: url("static/bgPiste.jpg");
     background-position: center;
     background-size: cover;
     align-items: flex-end;
@@ -169,7 +169,7 @@ export default {
   }
 
   #scuole {
-    background-image: url('static/bgScuole.jpeg');
+    background-image: url('assets/img/bgScuole.jpg');
   }
 
   #piste {
@@ -194,7 +194,7 @@ export default {
 
   .divisione:hover .nome-divisione {
     color: var(--accento);
-    padding-top: 60vh;
+    padding-top: 70vh;
   }
 
   .divisione:hover .velo-immagine {
