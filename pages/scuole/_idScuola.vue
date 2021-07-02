@@ -84,6 +84,33 @@ export default {
       pisteComprensorio: []
     }
   },
+  head() {
+    return {
+      title: `Scuola - ${this.$route.params.idScuola}`,
+      meta: [
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `Scuola - ${this.$route.params.idScuola}`
+        },
+        {
+          hid: 'title',
+          name: 'title',
+          content: `Scuola - ${this.$route.params.idScuola}`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `Visualizza informazioni sulla scuola ID:${this.$route.params.idScuola}`
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: `Visualizza informazioni sulla scuola ID:${this.$route.params.idScuola}`
+        }
+      ]
+    }
+  },
   beforeMount() {
     this.$lombardiaAPI.get(`tasa-ymhw.json?identificativo=${this.$route.params.idScuola}`)
         .then(risposta => {

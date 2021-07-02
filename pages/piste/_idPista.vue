@@ -109,6 +109,33 @@ export default {
       pisteComprensorio: []
     }
   },
+  head() {
+    return {
+      title: `Pista - ${this.$route.params.idPista}`,
+      meta: [
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `Pista - ${this.$route.params.idPista}`
+        },
+        {
+          hid: 'title',
+          name: 'title',
+          content: `Pista - ${this.$route.params.idPista}`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `Visualizza informazioni sulla pista ID:${this.$route.params.idPista}`
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: `Visualizza informazioni sulla pista ID:${this.$route.params.idPista}`
+        }
+      ]
+    }
+  },
   beforeMount() {
     this.$lombardiaAPI.get(`8c8w-y5ce.json?identificativo=${this.$route.params.idPista}`)
       .then(risposta => {

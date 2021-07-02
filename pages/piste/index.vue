@@ -111,6 +111,31 @@ export default {
     IconaX,
     IconaFiltro, IconaFrecciaIndietro, IconaSnowboard, IconaSkiweg, IconaSciFondo, IconaSciDiscesa, IconaCamposcuola
   },
+  head: {
+    title: 'Piste - ',
+    meta: [
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'Piste - SkiMap - Piste e scuole di sci della Lombardia'
+      },
+      {
+        hid: 'title',
+        name: 'title',
+        content: 'Piste - SkiMap - Piste e scuole di sci della Lombardia'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Visualizza sulla mappa tutte le piste da sci della Lombardia!'
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Visualizza sulla mappa tutte le piste da sci della Lombardia!'
+      }
+    ]
+  },
   data() {
     return {
       // OpenData

@@ -54,7 +54,32 @@
 <script>
 import IconaFreccia from "~/components/icone/ui/IconaFreccia";
 export default {
-  components: {IconaFreccia}
+  components: {IconaFreccia},
+  head: {
+    title: '',
+    meta: [
+      {
+        hid: 'og:title',
+        property: 'og:title',
+        content: 'SkiMap - Piste e scuole di sci della Lombardia'
+      },
+      {
+        hid: 'title',
+        name: 'title',
+        content: 'SkiMap - Piste e scuole di sci della Lombardia'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Con SkiMap Lombardia trovi subito le piste perfette e le scuole di sci più vicine ad esse!'
+      },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: 'Con SkiMap Lombardia trovi subito le piste perfette e le scuole di sci più vicine ad esse!'
+      }
+    ]
+  },
 }
 </script>
 
