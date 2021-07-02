@@ -80,6 +80,7 @@ html {
   font-family: "Evolve", serif;
   font-size: 1rem;
   color: var(--testo);
+  overflow: auto;
 }
 
 html, body {
@@ -88,6 +89,7 @@ html, body {
   margin: 0;
   padding: 0;
   overscroll-behavior: none;
+
 }
 
 #__nuxt, #__layout {
@@ -105,6 +107,7 @@ a {
 }
 .cliccabile:hover {
   color: var(--secondario);
+  stroke: var(--secondario);
 }
 .cliccabile:hover svg {
   stroke: var(--secondario);

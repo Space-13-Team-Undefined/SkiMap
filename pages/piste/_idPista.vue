@@ -1,12 +1,12 @@
 <template>
-  <div id="pista" class="fullscreen flex">
+  <div id="pista" class="flex">
     <div id="cont-img" class="flex-centro">
       <img id="img-pista" src="~/assets/img/bgPiste.jpg" alt="Immagine pista" class="desktop"/>
     </div>
 
-    <div id="bottone-maps" class="flex-centro davanti cliccabile">
+    <a :href="'http://www.google.com/maps/dir//' + pista.x_start_pista + ',' + pista.y_start_pista" target="_blank" id="bottone-maps" class="flex-centro davanti cliccabile">
       <IconaMaps id="icona-maps"/>
-    </div>
+    </a>
 
     <div id="header" class="flex-centro davanti2">
       <nuxt-link to="/piste" class="flex-centro cliccabile">
@@ -24,10 +24,10 @@
       </div>
       <div class="informazioni">
         <div class="icona-info flex">
-          <IconaTrattino /> Comune: {{ pista.comune }} ({{ pista.provincia }})
+          <IconaTrattino /> Comune: {{ $capitalize(pista.comune) }} ({{ $capitalize(pista.provincia) }})
         </div>
         <div class="icona-info flex">
-          <IconaTrattino /> Comprensorio: {{ pista.comprensorio }}
+          <IconaTrattino /> Comprensorio: {{ $capitalize(pista.comprensorio) }}
         </div>
       </div>
       <div class="titolo-informazioni titolo">
@@ -68,7 +68,22 @@
     </div>
 
     <div id="piste-vicine" class="flex">
-
+      <div id="titolo-piste-vicine" class="flex-centro titolo">
+        Nello stesso comprensorio
+      </div>
+      <div id="scroller-piste" class="flex-centro maxDim">
+        <IconaFreccia class="icona-scrolla cliccabile" style="transform: rotate(180deg)" @click.native="scrollaPiste(false)"/>
+        <div id="cont-piste-vicine" class="flex">
+          <nuxt-link v-for="pistaVicina in pisteComprensorio" :to="'/piste/' + pistaVicina.identificativo" :key="pistaVicina.identificativo" class="flex-centro elem-pista cliccabile">
+            <div class="velo-img">
+              <div class="nome-pista-vicina titolo flex-centro">
+                {{ $capitalize(pistaVicina.nome_pista) }}
+              </div>
+            </div>
+          </nuxt-link>
+        </div>
+        <IconaFreccia class="icona-scrolla cliccabile" @click.native="scrollaPiste(true)"/>
+      </div>
     </div>
 
     <div id="scuole-vicine" class="flex">
@@ -83,13 +98,15 @@ import IconaCheck from "@/components/icone/ui/IconaCheck";
 import IconaMaps from "@/components/icone/ui/IconaMaps";
 import IconaX from "@/components/icone/ui/IconaX";
 import IconaTrattino from "@/components/icone/ui/IconaTrattino";
+import IconaFreccia from "@/components/icone/ui/IconaFreccia";
 export default {
-  components: {IconaTrattino, IconaX, IconaMaps, IconaCheck, IconaFrecciaIndietro},
+  components: {IconaFreccia, IconaTrattino, IconaX, IconaMaps, IconaCheck, IconaFrecciaIndietro},
   data() {
     return {
       pista: {
-        nome_pista: 'caricamento...'
-      }
+        nome_pista: 'caricamento...',
+      },
+      pisteComprensorio: []
     }
   },
   beforeMount() {
@@ -97,6 +114,11 @@ export default {
       .then(risposta => {
         this.pista = risposta.data[0]
         console.log(this.pista)
+
+        this.$lombardiaAPI.get(`8c8w-y5ce.json?comprensorio=${this.pista.comprensorio}`)
+            .then(risposta => {
+              this.pisteComprensorio = risposta.data
+            })
       })
     .catch(errore => {
       // TODO: Gestire errore pista non trovata
@@ -148,6 +170,7 @@ export default {
   border: 2px solid black;
   border-radius: 3.125rem;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  transition: all var(--vel-transizione) var(--stile-transizione);
 }
 
 #header {
@@ -198,6 +221,66 @@ svg {
   height: 1.5rem;
   width: 1.5rem;
 }
+#bottone-maps:hover svg {
+  stroke: black;
+}
+#bottone-maps:hover {
+  transform: translate3d(-0.4vh, -0.4vh, 0);
+}
+
+#piste-vicine {
+  margin: 1.5rem 2rem;
+  flex-direction: column;
+}
+
+#cont-piste-vicine {
+  margin-top: 0.5rem;
+  align-items: center;
+  overflow: scroll;
+  white-space: nowrap;
+  word-wrap: break-word;
+  overflow-y: hidden;
+}
+
+.elem-pista {
+  height: 10vh;
+  width: 36%;
+  min-width: 36%;
+  max-width: 36%;
+  margin: 0.7rem;
+  background-image: url("~/assets/img/bgPiste.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.7rem;
+  word-wrap: break-word;
+}
+
+.velo-img {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, .5);
+  transition: background-color var(--vel-transizione) var(--stile-transizione);
+  border-radius: 0.7rem;
+}
+
+.nome-pista-vicina {
+  width: 100%;
+  height: 100%;
+  white-space: initial;
+  font-size: 1.3rem;
+  color: white;
+}
+
+.velo-img:hover {
+  background-color: rgba(0,0,0, .3);
+}
+
+.icona-scrolla {
+  min-height: 3rem;
+  min-width: 3rem;
+  height: 3rem;
+  width: 3rem;
+}
 
 
 @media screen and (max-width: 600px) {
@@ -210,12 +293,22 @@ svg {
   }
 
   #bottone-maps {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     margin: 1.5rem;
     padding: 0.5rem;
     background-color: white;
+  }
+
+  .elem-pista {
+    width: 50%;
+    min-width: 50%;
+    max-width: 50%;
+  }
+
+  #piste-vicine {
+    margin: 1.5rem 1rem 5rem 1rem;
   }
 }
 

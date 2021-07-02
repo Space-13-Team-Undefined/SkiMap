@@ -76,10 +76,10 @@
 
     <div id="pista-popup" class="flex-centro" v-if="pistaAperta !== null">
       <div id="nome-pista" class="titolo">
-        {{ pistaAperta.nome_pista.charAt(0).toUpperCase() + pistaAperta.nome_pista.toLowerCase().slice(1) }}
+        {{ $capitalize(pistaAperta.nome_pista) }}
       </div>
       <div id="localita-pista" class="descrizione">
-        {{ pistaAperta.comune }} ({{ pistaAperta.provincia }})
+        {{ $capitalize(pistaAperta.comune) }} ({{ $capitalize(pistaAperta.provincia) }})
       </div>
       <div id="menu-pista" class="flex-centro">
         <div id="chiudi-popup" class="cliccabile flex-centro" v-on:click="pistaAperta = null" >

@@ -30,6 +30,7 @@ export default {
   // Plugin da caricare prima del rendering delle pagine: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/axios',
+    '~/plugins/funzioni'
   ],
 
   // Auto importazione del components: https://go.nuxtjs.dev/config-components
